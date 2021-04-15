@@ -1,5 +1,3 @@
-require 'protos/user/service_pb'
-require 'protos/user/service_twirp'
 
 class UsersController < ::Rpc::ApplicationController
   service ::UserService

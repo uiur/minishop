@@ -33,6 +33,6 @@ module Minishop
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.paths.add 'lib/protos', load_path: true
+    config.autoload_paths << 'lib/proto_gens'
   end
 end

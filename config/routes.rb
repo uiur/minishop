@@ -1,4 +1,4 @@
-Dir[Rails.root.join('lib', 'protos', '**', '*.rb')].sort.each { |f| require f }
+# Dir[Rails.root.join('lib', 'proto_gens', '**', '*.rb')].sort.each { |f| require f }
 
 Rails.application.routes.draw do
   def rpc(service)
