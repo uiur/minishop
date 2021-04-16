@@ -8,7 +8,7 @@ class UsersController < ::Rpc::ApplicationController
   end
 
   def show
-    user = User.find(req.id)
+    user = User.find(rpc_request.id)
     user.as_json(only: [:id, :name])
   end
 end
