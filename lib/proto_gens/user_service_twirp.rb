@@ -6,6 +6,7 @@ class UserService < Twirp::Service
   service 'User'
   rpc :Show, UserShowRequest, UserResponse, :ruby_method => :show
   rpc :Create, UserCreateRequest, UserResponse, :ruby_method => :create
+  rpc :Index, UserIndexRequest, UsersResponse, :ruby_method => :index
 end
 
 class UserClient < Twirp::Client

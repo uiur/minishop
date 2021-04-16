@@ -1,9 +1,12 @@
 syntax = "proto3";
 import "user_show_request.proto";
 import "user_create_request.proto";
+import "user_index_request.proto";
 import "user_response.proto";
+import "users_response.proto";
 
 service User {
   rpc Show(UserShowRequest) returns (UserResponse);
   rpc Create(UserCreateRequest) returns (UserResponse);
+  rpc Index(UserIndexRequest) returns (UsersResponse);
 }

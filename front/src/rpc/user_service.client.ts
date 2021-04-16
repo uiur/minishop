@@ -4,6 +4,8 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { User } from "./user_service";
+import type { UsersResponse } from "./users_response";
+import type { UserIndexRequest } from "./user_index_request";
 import type { UserCreateRequest } from "./user_create_request";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { UserResponse } from "./user_response";
@@ -22,6 +24,10 @@ export interface IUserClient {
      * @generated from protobuf rpc: Create(UserCreateRequest) returns (UserResponse);
      */
     create(input: UserCreateRequest, options?: RpcOptions): UnaryCall<UserCreateRequest, UserResponse>;
+    /**
+     * @generated from protobuf rpc: Index(UserIndexRequest) returns (UsersResponse);
+     */
+    index(input: UserIndexRequest, options?: RpcOptions): UnaryCall<UserIndexRequest, UsersResponse>;
 }
 /**
  * @generated from protobuf service User
@@ -45,5 +51,12 @@ export class UserClient implements IUserClient, ServiceInfo {
     create(input: UserCreateRequest, options?: RpcOptions): UnaryCall<UserCreateRequest, UserResponse> {
         const method = this.methods[1], opt = this._transport.mergeOptions(options);
         return stackIntercept<UserCreateRequest, UserResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: Index(UserIndexRequest) returns (UsersResponse);
+     */
+    index(input: UserIndexRequest, options?: RpcOptions): UnaryCall<UserIndexRequest, UsersResponse> {
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        return stackIntercept<UserIndexRequest, UsersResponse>("unary", this._transport, method, opt, input);
     }
 }

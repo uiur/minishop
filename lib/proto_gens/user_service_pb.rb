@@ -5,7 +5,9 @@ require 'google/protobuf'
 
 require 'user_show_request_pb'
 require 'user_create_request_pb'
+require 'user_index_request_pb'
 require 'user_response_pb'
+require 'users_response_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("user_service.proto", :syntax => :proto3) do
   end
