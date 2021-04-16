@@ -9,6 +9,7 @@ class UsersController < ::Rpc::ApplicationController
 
   def index
     users = User.all
+
     {
       users: users.map { |user|
         user.as_json(only: [:id, :name])
