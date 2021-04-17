@@ -12,3 +12,4 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("user_service.proto", :syntax => :proto3) do
   end
 end
+
