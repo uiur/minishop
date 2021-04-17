@@ -34,7 +34,6 @@ module Minishop
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.autoload_paths << 'lib/proto_gens'
+    config.autoload_paths << 'lib/protos'
   end
 end
-
-Rails.autoloaders.log!

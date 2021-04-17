@@ -5,8 +5,10 @@ import transport from './client/transport'
 import { UserClient } from './rpc/user_service.client'
 import { UserResponse } from './rpc/user_response'
 import { UsersResponse } from './rpc/users_response'
+import useSWR from 'swr'
+import { User } from './rpc/user_service'
 
-function User({ user }: { user: UserResponse }) {
+function UserComponent({ user }: { user: UserResponse }) {
   return (
     <div>
       <p>id: {user.id}</p>
@@ -15,32 +17,34 @@ function User({ user }: { user: UserResponse }) {
   )
 }
 
+function useUser(id: number) {
+  const client = new UserClient(transport)
+  const fetcher = () =>
+    new Promise<UserResponse>((resolve, reject) =>
+      client.show({ id: id }).then(({ response }) => resolve(response), reject)
+    )
+  return useSWR(['User/Show', id], fetcher)
+}
+
+function useUsers() {
+  const client = new UserClient(transport)
+  const fetcher = () =>
+    new Promise<UserResponse[]>((resolve, reject) =>
+      client.index({}).then(({ response }) => resolve(response.users), reject)
+    )
+  return useSWR(['User/Index'], fetcher)
+}
+
 function App() {
-  const [user, setUser] = useState<UserResponse | null>(null)
-  const [users, setUsers] = useState<Array<UserResponse>>([])
-
-  useEffect(() => {
-    ;(async () => {
-      const client = new UserClient(transport)
-      const { response: data } = await client.show({ id: 3 })
-      setUser(data)
-    })()
-  }, [])
-
-  useEffect(() => {
-    ;(async () => {
-      const client = new UserClient(transport)
-      const { response: data } = await client.index({})
-      setUsers(data.users)
-    })()
-  }, [])
+  const { data: user } = useUser(3)
+  const { data: users } = useUsers()
 
   return (
     <div className="App">
       <header className="App-header">
-        {user && <User user={user} />}
-        {users.map((user) => {
-          return <User user={user} />
+        {user && <UserComponent user={user} />}
+        {(users || []).map((user) => {
+          return <UserComponent key={user.id} user={user} />
         })}
       </header>
     </div>
