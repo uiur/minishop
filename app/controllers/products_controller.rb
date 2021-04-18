@@ -13,6 +13,6 @@ class ProductsController < ::Rpc::ApplicationController
 
   def show
     product = Product.find(rpc_request.id)
-    product.as_json(only: [:id, :name])
+    product.as_json(only: [:id, :name, :price, :image_url])
   end
 end

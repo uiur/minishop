@@ -10,6 +10,14 @@ import { User } from './rpc/user_service'
 import { ProductClient } from './rpc/product_service.client'
 import { ProductResponse } from './rpc/product_response'
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from 'react-router-dom'
+
 function useUser(id: number) {
   const client = new UserClient(transport)
   const fetcher = () =>
@@ -28,6 +36,16 @@ function useUsers() {
   return useSWR(['User/Index'], fetcher)
 }
 
+function useProduct(id: string) {
+  const client = new ProductClient(transport)
+  const fetcher = () =>
+    new Promise<ProductResponse>((resolve, reject) =>
+      client.show({ id: id }).then(({ response }) => resolve(response), reject)
+    )
+
+  return useSWR(['Product/Show', id], fetcher)
+}
+
 function useProducts() {
   const client = new ProductClient(transport)
   const fetcher = () =>
@@ -42,37 +60,70 @@ function useProducts() {
 
 function ProductComponent({ product }: { product: ProductResponse }) {
   return (
-    <div key={product.id} className="product">
-      <div>
-        <img className="product-image" src={product.imageUrl}></img>
-      </div>
-      <div>{product.name}</div>
+    <Link to={`/products/${product.id}`}>
+      <div key={product.id} className="product">
+        <div>
+          <img className="product-image" src={product.imageUrl}></img>
+        </div>
+        <div>{product.name}</div>
 
-      <div>${product.price}</div>
-    </div>
+        <div>${product.price}</div>
+      </div>
+    </Link>
+  )
+}
+
+function ProductsPage() {
+  const { data: products } = useProducts()
+
+  return (
+    <section className="content">
+      <header>
+        <h1>ALL CLOTHES</h1>
+      </header>
+      <div className="products-container">
+        {(products || []).map((product) => {
+          return <ProductComponent key={product.id} product={product} />
+        })}
+      </div>
+    </section>
+  )
+}
+
+function ProductPage() {
+  const { id } = useParams<{ id: string }>()
+  const { data: product } = useProduct(id)
+  return (
+    <section className="content">
+      <header>
+        <h1>PRODUCT</h1>
+      </header>
+      <div>
+        {product && <ProductComponent product={product}></ProductComponent>}
+      </div>
+    </section>
   )
 }
 
 function App() {
-  const { data: products } = useProducts()
-
   return (
-    <div>
-      <header>
-        <span>cart</span>
-      </header>
-
-      <section className="content">
+    <Router>
+      <div>
         <header>
-          <h1>ALL CLOTHES</h1>
+          <span>cart</span>
         </header>
-        <div className="products-container">
-          {(products || []).map((product) => {
-            return <ProductComponent key={product.id} product={product} />
-          })}
-        </div>
-      </section>
-    </div>
+
+        <Switch>
+          <Route path="/" exact>
+            <ProductsPage></ProductsPage>
+          </Route>
+
+          <Route path="/products/:id">
+            <ProductPage></ProductPage>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
