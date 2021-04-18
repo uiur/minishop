@@ -9,6 +9,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :id, :string, 1
       optional :name, :string, 2
       optional :price, :int32, 3
+      optional :image_url, :string, 4
     end
   end
 end

@@ -6,7 +6,7 @@ class ProductsController < ::Rpc::ApplicationController
 
     {
       products: products.map { |product|
-        product.as_json(only: [:id, :name, :price])
+        product.as_json(only: [:id, :name, :price, :image_url])
       }
     }
   end

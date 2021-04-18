@@ -24,6 +24,10 @@ export interface ProductResponse {
    * @generated from protobuf field: int32 price = 3;
    */
   price: number
+  /**
+   * @generated from protobuf field: string image_url = 4;
+   */
+  imageUrl: string
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ProductResponse$Type extends MessageType<ProductResponse> {
@@ -32,6 +36,7 @@ class ProductResponse$Type extends MessageType<ProductResponse> {
       { no: 1, name: 'id', kind: 'scalar', T: 9 /*ScalarType.STRING*/ },
       { no: 2, name: 'name', kind: 'scalar', T: 9 /*ScalarType.STRING*/ },
       { no: 3, name: 'price', kind: 'scalar', T: 5 /*ScalarType.INT32*/ },
+      { no: 4, name: 'image_url', kind: 'scalar', T: 9 /*ScalarType.STRING*/ },
     ])
   }
   internalBinaryRead(
@@ -53,6 +58,9 @@ class ProductResponse$Type extends MessageType<ProductResponse> {
           break
         case /* int32 price */ 3:
           message.price = reader.int32()
+          break
+        case /* string image_url */ 4:
+          message.imageUrl = reader.string()
           break
         default:
           let u = options.readUnknownField
@@ -86,6 +94,9 @@ class ProductResponse$Type extends MessageType<ProductResponse> {
       writer.tag(2, WireType.LengthDelimited).string(message.name)
     /* int32 price = 3; */
     if (message.price !== 0) writer.tag(3, WireType.Varint).int32(message.price)
+    /* string image_url = 4; */
+    if (message.imageUrl !== '')
+      writer.tag(4, WireType.LengthDelimited).string(message.imageUrl)
     let u = options.writeUnknownFields
     if (u !== false)
       (u == true ? UnknownFieldHandler.onWrite : u)(

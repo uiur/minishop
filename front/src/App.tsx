@@ -44,10 +44,7 @@ function ProductComponent({ product }: { product: ProductResponse }) {
   return (
     <div key={product.id} className="product">
       <div>
-        <img
-          className="product-image"
-          src={'https://i.gyazo.com/bb3d367ecb9494a1d95ca95463895d60.jpg'}
-        ></img>
+        <img className="product-image" src={product.imageUrl}></img>
       </div>
       <div>{product.name}</div>
 
@@ -67,7 +64,7 @@ function App() {
 
       <section className="content">
         <header>
-          <h1>ALL HOODIES</h1>
+          <h1>ALL CLOTHES</h1>
         </header>
         <div className="products-container">
           {(products || []).map((product) => {
