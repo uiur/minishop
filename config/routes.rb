@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  rpc ::UserService
+  [::UserService, ::ProductService].each do |service|
+    rpc service
+  end
 end

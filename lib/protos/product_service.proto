@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "product_show_request.proto";
+import "product_response.proto";
+import "product_index_request.proto";
+import "products_response.proto";
+
+service Product {
+  rpc Show(ProductShowRequest) returns (ProductResponse);
+  rpc Index(ProductIndexRequest) returns (ProductsResponse);
+}

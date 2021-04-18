@@ -1,0 +1,4 @@
+syntax = "proto3";
+message ProductShowRequest {
+  string id = 1;
+}

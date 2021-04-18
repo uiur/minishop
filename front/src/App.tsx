@@ -7,15 +7,8 @@ import { UserResponse } from './rpc/user_response'
 import { UsersResponse } from './rpc/users_response'
 import useSWR from 'swr'
 import { User } from './rpc/user_service'
-
-function UserComponent({ user }: { user: UserResponse }) {
-  return (
-    <div>
-      <p>id: {user.id}</p>
-      <p>name: {user.name} </p>
-    </div>
-  )
-}
+import { ProductClient } from './rpc/product_service.client'
+import { ProductResponse } from './rpc/product_response'
 
 function useUser(id: number) {
   const client = new UserClient(transport)
@@ -35,18 +28,53 @@ function useUsers() {
   return useSWR(['User/Index'], fetcher)
 }
 
+function useProducts() {
+  const client = new ProductClient(transport)
+  const fetcher = () =>
+    new Promise<ProductResponse[]>((resolve, reject) =>
+      client
+        .index({})
+        .then(({ response }) => resolve(response.products), reject)
+    )
+
+  return useSWR(['Product/Index'], fetcher)
+}
+
+function ProductComponent({ product }: { product: ProductResponse }) {
+  return (
+    <div key={product.id} className="product">
+      <div>
+        <img
+          className="product-image"
+          src={'https://i.gyazo.com/bb3d367ecb9494a1d95ca95463895d60.jpg'}
+        ></img>
+      </div>
+      <div>{product.name}</div>
+
+      <div>${product.price}</div>
+    </div>
+  )
+}
+
 function App() {
-  const { data: user } = useUser(3)
-  const { data: users } = useUsers()
+  const { data: products } = useProducts()
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {user && <UserComponent user={user} />}
-        {(users || []).map((user) => {
-          return <UserComponent key={user.id} user={user} />
-        })}
+    <div>
+      <header>
+        <span>cart</span>
       </header>
+
+      <section className="content">
+        <header>
+          <h1>ALL HOODIES</h1>
+        </header>
+        <div className="products-container">
+          {(products || []).map((product) => {
+            return <ProductComponent key={product.id} product={product} />
+          })}
+        </div>
+      </section>
     </div>
   )
 }

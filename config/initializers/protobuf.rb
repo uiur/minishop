@@ -16,7 +16,7 @@ end
 
 def system!(*args)
   Rails.logger.debug([Time.current.iso8601] + args)
-  system(*args) || abort("\n== Command #{args} failed ==")
+  system(*args) || puts("\n== Command #{args} failed ==")
 end
 
 def compile_proto
