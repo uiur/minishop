@@ -5,7 +5,7 @@ require_relative 'product_service_pb.rb'
 class ProductService < Twirp::Service
   service 'Product'
   rpc :Show, ProductShowRequest, ProductResponse, :ruby_method => :show
-  rpc :Index, ProductIndexRequest, ProductsResponse, :ruby_method => :index
+  rpc :Index, Google::Protobuf::Empty, ProductsResponse, :ruby_method => :index
 end
 
 class ProductClient < Twirp::Client

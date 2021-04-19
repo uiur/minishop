@@ -2,10 +2,10 @@ syntax = "proto3";
 
 import "product_show_request.proto";
 import "product_response.proto";
-import "product_index_request.proto";
 import "products_response.proto";
+import "google/protobuf/empty.proto";
 
 service Product {
   rpc Show(ProductShowRequest) returns (ProductResponse);
-  rpc Index(ProductIndexRequest) returns (ProductsResponse);
+  rpc Index(google.protobuf.Empty) returns (ProductsResponse);
 }

@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proto:gen": "mkdir -p src/rpc && rm -f src/rpc/*.ts && protoc -I=../lib/protos --ts_opt long_type_number --ts_out=src/rpc ../lib/protos/*.proto"
+    "proto:gen": "mkdir -p src/rpc && rm -f src/rpc/*.ts && protoc -I=../lib/protos --ts_opt long_type_number --ts_opt generate_dependencies --ts_out=src/rpc ../lib/protos/*.proto"
   },
   "eslintConfig": {
     "extends": [
