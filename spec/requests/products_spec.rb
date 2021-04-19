@@ -17,8 +17,15 @@ describe 'products', type: :request do
     it do
       expect(rpc_response.data.to_h).to match(
         products: [
-          hash_including(name: product.name)
+          hash_including(
+            name: product.name,
+          )
         ]
+      )
+
+      product_response = rpc_response.data.products.first
+      expect(product_response).to have_attributes(
+        created_at: Google::Protobuf::Timestamp
       )
     end
   end

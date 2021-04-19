@@ -8,6 +8,7 @@ import type { BinaryReadOptions } from '@protobuf-ts/runtime'
 import type { IBinaryReader } from '@protobuf-ts/runtime'
 import { UnknownFieldHandler } from '@protobuf-ts/runtime'
 import { MessageType } from '@protobuf-ts/runtime'
+import { Timestamp } from './google/protobuf/timestamp'
 /**
  * @generated from protobuf message ProductResponse
  */
@@ -28,6 +29,10 @@ export interface ProductResponse {
    * @generated from protobuf field: string image_url = 4;
    */
   imageUrl: string
+  /**
+   * @generated from protobuf field: google.protobuf.Timestamp created_at = 5;
+   */
+  createdAt?: Timestamp
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class ProductResponse$Type extends MessageType<ProductResponse> {
@@ -37,6 +42,7 @@ class ProductResponse$Type extends MessageType<ProductResponse> {
       { no: 2, name: 'name', kind: 'scalar', T: 9 /*ScalarType.STRING*/ },
       { no: 3, name: 'price', kind: 'scalar', T: 5 /*ScalarType.INT32*/ },
       { no: 4, name: 'image_url', kind: 'scalar', T: 9 /*ScalarType.STRING*/ },
+      { no: 5, name: 'created_at', kind: 'message', T: () => Timestamp },
     ])
   }
   internalBinaryRead(
@@ -61,6 +67,14 @@ class ProductResponse$Type extends MessageType<ProductResponse> {
           break
         case /* string image_url */ 4:
           message.imageUrl = reader.string()
+          break
+        case /* google.protobuf.Timestamp created_at */ 5:
+          message.createdAt = Timestamp.internalBinaryRead(
+            reader,
+            reader.uint32(),
+            options,
+            message.createdAt
+          )
           break
         default:
           let u = options.readUnknownField
@@ -97,6 +111,13 @@ class ProductResponse$Type extends MessageType<ProductResponse> {
     /* string image_url = 4; */
     if (message.imageUrl !== '')
       writer.tag(4, WireType.LengthDelimited).string(message.imageUrl)
+    /* google.protobuf.Timestamp created_at = 5; */
+    if (message.createdAt)
+      Timestamp.internalBinaryWrite(
+        message.createdAt,
+        writer.tag(5, WireType.LengthDelimited).fork(),
+        options
+      ).join()
     let u = options.writeUnknownFields
     if (u !== false)
       (u == true ? UnknownFieldHandler.onWrite : u)(
