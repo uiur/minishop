@@ -1,5 +1,0 @@
-syntax = "proto3";
-import "product_response.proto";
-message ProductsResponse {
-  repeated ProductResponse products = 1;
-}

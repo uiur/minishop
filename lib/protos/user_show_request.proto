@@ -1,5 +1,0 @@
-syntax = "proto3";
-
-message UserShowRequest {
-  int64 id = 1;
-}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "rpc/product/show_request.proto";
+import "rpc/product/product_response.proto";
+import "rpc/product/products_response.proto";
+import "google/protobuf/empty.proto";
+
+package rpc.product;
+
+
+service Product {
+  rpc Show(rpc.product.ShowRequest) returns (rpc.product.ProductResponse);
+  rpc Index(google.protobuf.Empty) returns (rpc.product.ProductsResponse);
+}

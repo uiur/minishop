@@ -10,5 +10,5 @@ end
 
 Rails.autoloaders.each do |autoloader|
   autoloader.inflector = ProtobufInflector.new
-  autoloader.ignore "lib/proto_gens/**/*_service_pb.rb"
+  autoloader.ignore "lib/gens/**/*_service_pb.rb"
 end

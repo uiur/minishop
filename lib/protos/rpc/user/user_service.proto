@@ -1,0 +1,14 @@
+syntax = "proto3";
+package rpc.user;
+
+import "rpc/user/show_request.proto";
+import "rpc/user/create_request.proto";
+import "rpc/user/user_response.proto";
+import "rpc/user/users_response.proto";
+import "google/protobuf/empty.proto";
+
+service User {
+  rpc Show(rpc.user.ShowRequest) returns (rpc.user.UserResponse);
+  rpc Create(rpc.user.CreateRequest) returns (rpc.user.UserResponse);
+  rpc Index(google.protobuf.Empty) returns (rpc.user.UsersResponse);
+}

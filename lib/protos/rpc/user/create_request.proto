@@ -1,0 +1,6 @@
+syntax = "proto3";
+package rpc.user;
+
+message CreateRequest {
+  string name = 1;
+}

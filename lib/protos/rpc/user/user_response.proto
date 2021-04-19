@@ -1,0 +1,7 @@
+syntax = "proto3";
+package rpc.user;
+
+message UserResponse {
+  int64 id = 1;
+  string name = 2;
+}

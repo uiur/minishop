@@ -1,0 +1,7 @@
+syntax = "proto3";
+package rpc.user;
+option ruby_package = "Rpc::User";
+
+message ShowRequest {
+  int64 id = 1;
+}

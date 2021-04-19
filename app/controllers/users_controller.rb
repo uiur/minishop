@@ -1,6 +1,6 @@
 
 class UsersController < ::Rpc::ApplicationController
-  service ::UserService
+  service ::Rpc::User::UserService
 
   def create
     user = User.create(rpc_request.to_h)

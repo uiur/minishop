@@ -1,5 +1,5 @@
 class ProductsController < ::Rpc::ApplicationController
-  service ::ProductService
+  service ::Rpc::Product::ProductService
 
   def index
     products = Product.all.order(:created_at)

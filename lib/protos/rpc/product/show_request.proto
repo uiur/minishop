@@ -1,0 +1,6 @@
+syntax = "proto3";
+package rpc.product;
+
+message ShowRequest {
+  string id = 1;
+}

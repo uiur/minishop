@@ -11,9 +11,9 @@ namespace :proto do
     proto_dir = Rails.root.join('lib', 'protos')
     proto_path = Rails.root.join(proto_dir, '**', '*.proto').to_s
     proto_service_path = Rails.root.join(proto_dir, '**', '*_service.proto').to_s
-    gen_dir = Rails.root.join('lib', 'proto_gens')
+    gen_dir = Rails.root.join('lib', 'gens')
 
-    FileUtils.rm_rf(Rails.root.join(gen_dir, '**', '*.rb').to_s)
+    FileUtils.rm_f(Dir[Rails.root.join(gen_dir, '**', '*.rb').to_s])
     system!('protoc', "--proto_path=#{proto_dir}", "--ruby_out=#{gen_dir}", *Dir[proto_path])
     system!('protoc', "--proto_path=#{proto_dir}", "--twirp_ruby_out=#{gen_dir}", *Dir[proto_service_path])
   end

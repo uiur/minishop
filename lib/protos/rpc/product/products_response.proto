@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package rpc.product;
+import "rpc/product/product_response.proto";
+
+message ProductsResponse {
+  repeated rpc.product.ProductResponse products = 1;
+}

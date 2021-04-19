@@ -1,0 +1,7 @@
+syntax = "proto3";
+import "rpc/user/user_response.proto";
+package rpc.user;
+
+message UsersResponse {
+  repeated rpc.user.UserResponse users = 1;
+}

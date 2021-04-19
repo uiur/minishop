@@ -22,7 +22,7 @@ describe 'users', type: :request do
 
     it do
       submit_request
-      res = Twirp::Encoding.decode(response.body, UserResponse, Twirp::Encoding::JSON)
+      res = Twirp::Encoding.decode(response.body, Rpc::User::UserResponse, Twirp::Encoding::JSON)
       expect(res.to_h).to match(
         id: Integer,
         name: String
