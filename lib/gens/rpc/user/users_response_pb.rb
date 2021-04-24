@@ -8,6 +8,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("rpc/user/users_response.proto", :syntax => :proto3) do
     add_message "rpc.user.UsersResponse" do
       repeated :users, :message, 1, "rpc.user.UserResponse"
+      optional :user, :message, 2, "rpc.user.UserResponse"
     end
   end
 end

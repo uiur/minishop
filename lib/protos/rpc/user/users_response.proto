@@ -3,5 +3,6 @@ import "rpc/user/user_response.proto";
 package rpc.user;
 
 message UsersResponse {
-  repeated rpc.user.UserResponse users = 1;
+  repeated UserResponse users = 1;
+  UserResponse user = 2;
 }

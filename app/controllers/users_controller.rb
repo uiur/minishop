@@ -4,7 +4,7 @@ class UsersController < ::Rpc::ApplicationController
 
   def create
     user = User.create(rpc_request.to_h)
-    user.as_json(only: [:id, :name])
+    UserResponsePresenter.new(user).serializable_hash
   end
 
   def index

@@ -17,6 +17,10 @@ export interface UsersResponse {
    * @generated from protobuf field: repeated rpc.user.UserResponse users = 1;
    */
   users: UserResponse[]
+  /**
+   * @generated from protobuf field: rpc.user.UserResponse user = 2;
+   */
+  user?: UserResponse
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class UsersResponse$Type extends MessageType<UsersResponse> {
@@ -29,6 +33,7 @@ class UsersResponse$Type extends MessageType<UsersResponse> {
         repeat: 1 /*RepeatType.PACKED*/,
         T: () => UserResponse,
       },
+      { no: 2, name: 'user', kind: 'message', T: () => UserResponse },
     ])
   }
   internalBinaryRead(
@@ -45,6 +50,14 @@ class UsersResponse$Type extends MessageType<UsersResponse> {
         case /* repeated rpc.user.UserResponse users */ 1:
           message.users.push(
             UserResponse.internalBinaryRead(reader, reader.uint32(), options)
+          )
+          break
+        case /* rpc.user.UserResponse user */ 2:
+          message.user = UserResponse.internalBinaryRead(
+            reader,
+            reader.uint32(),
+            options,
+            message.user
           )
           break
         default:
@@ -76,6 +89,13 @@ class UsersResponse$Type extends MessageType<UsersResponse> {
       UserResponse.internalBinaryWrite(
         message.users[i],
         writer.tag(1, WireType.LengthDelimited).fork(),
+        options
+      ).join()
+    /* rpc.user.UserResponse user = 2; */
+    if (message.user)
+      UserResponse.internalBinaryWrite(
+        message.user,
+        writer.tag(2, WireType.LengthDelimited).fork(),
         options
       ).join()
     let u = options.writeUnknownFields

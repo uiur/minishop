@@ -3,37 +3,17 @@ class ProductsController < ::Rpc::ApplicationController
 
   def index
     products = Product.all.order(:created_at)
-
-    {
-      products: products.map { |product|
-        serialize(product)
-      }
-    }
+    ProductsResponseRepresenter.new(OpenStruct.new(products: products)).serializable_hash
   end
 
   def show
     product = Product.find(rpc_request.id)
-    serialize(product)
+    represent(product)
   end
 
   private
 
-  def serialize(product)
-    seconds = product
-    {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image_url: product.image_url,
-      created_at: serialize_time(product.created_at)
-    }
-
-  end
-
-  def serialize_time(time)
-    require 'google/protobuf/well_known_types'
-    t = Google::Protobuf::Timestamp.new
-    t.from_time(time)
-    t
+  def represent(product)
+    ProductResponseRepresenter.new(product).serializable_hash
   end
 end
