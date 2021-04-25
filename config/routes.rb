@@ -12,7 +12,7 @@ service_classes = Dir[proto_gen_dir.join('**', '*_service_*.rb')].sort.map {|pat
 Rails.application.routes.draw do
   def rpc(service)
     service.rpcs.each do |name, _|
-      post "/twirp/#{service.service_full_name}/#{name}", controller: service.service_full_name.split('.')[-1].downcase.pluralize, action: name.downcase, format: false
+      post "/twirp/#{service.service_full_name}/#{name}", controller: service.service_full_name.split('.')[-1].downcase.pluralize, action: name.underscore, format: false
     end
   end
 

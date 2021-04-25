@@ -1,0 +1,8 @@
+syntax = "proto3";
+package rpc.order;
+
+message UpdateProductRequest {
+  string order_id = 1;
+  string product_id = 2;
+  int32 quantity = 3;
+}

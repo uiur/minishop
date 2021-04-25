@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "rpc/order/update_product_request.proto";
+import "rpc/order/order_resource.proto";
+import "google/protobuf/empty.proto";
+
+package rpc.order;
+
+service Cart {
+  rpc UpdateProduct(UpdateProductRequest) returns (OrderResource);
+}
