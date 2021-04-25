@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-import "rpc/order/order_item.proto";
+import "rpc/order/order_item_resource.proto";
 package rpc.order;
 
-message OrderResponse {
+message OrderResource {
   string id = 1;
   enum Status {
     CART = 0;
     ORDEDED = 1;
   }
   Status status = 2;
-  repeated OrderItem order_items = 3;
+  repeated OrderItemResource order_items = 3;
 }

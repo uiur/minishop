@@ -4,7 +4,7 @@
 require 'google/protobuf'
 
 require 'rpc/order/show_request_pb'
-require 'rpc/order/order_response_pb'
+require 'rpc/order/order_resource_pb'
 require 'google/protobuf/empty_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("rpc/order/order_service.proto", :syntax => :proto3) do

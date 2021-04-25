@@ -7,8 +7,8 @@ module Rpc
     class OrderService < Twirp::Service
       package 'rpc.order'
       service 'Order'
-      rpc :Create, Google::Protobuf::Empty, Rpc::Order::OrderResponse, :ruby_method => :create
-      rpc :Show, Rpc::Order::ShowRequest, Rpc::Order::OrderResponse, :ruby_method => :show
+      rpc :Create, Google::Protobuf::Empty, Rpc::Order::OrderResource, :ruby_method => :create
+      rpc :Show, Rpc::Order::ShowRequest, Rpc::Order::OrderResource, :ruby_method => :show
     end
 
     class OrderClient < Twirp::Client

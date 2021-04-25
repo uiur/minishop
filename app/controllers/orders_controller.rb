@@ -14,6 +14,6 @@ class OrdersController < ::Rpc::ApplicationController
   private
 
   def represent(product)
-    OrderResponseRepresenter.represent(product)
+    OrderResourceRepresenter.represent(product)
   end
 end

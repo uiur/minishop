@@ -1,12 +1,12 @@
 syntax = "proto3";
 
 import "rpc/order/show_request.proto";
-import "rpc/order/order_response.proto";
+import "rpc/order/order_resource.proto";
 import "google/protobuf/empty.proto";
 
 package rpc.order;
 
 service Order {
-  rpc Create(google.protobuf.Empty) returns (OrderResponse);
-  rpc Show(ShowRequest) returns (OrderResponse);
+  rpc Create(google.protobuf.Empty) returns (OrderResource);
+  rpc Show(ShowRequest) returns (OrderResource);
 }
