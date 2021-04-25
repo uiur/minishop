@@ -7,7 +7,6 @@ class BaseRepresenter
   def initialize(object)
     @object = object
   end
-
   class <<self
     Field = Struct.new(:name, :type, :representer, keyword_init: true)
     def field(name, type = nil, representer: nil)
@@ -71,6 +70,10 @@ class BaseRepresenter
 
       if field.representer
         value = field.representer.represent(value, context: @context)
+      end
+
+      if field.type == :enum
+        value = value.upcase
       end
 
       hash[field.name] = cast_value(value)

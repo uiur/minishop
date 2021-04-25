@@ -8,7 +8,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("rpc/order/order_response.proto", :syntax => :proto3) do
     add_message "rpc.order.OrderResponse" do
       optional :id, :string, 1
-      repeated :order_items, :message, 2, "rpc.order.OrderItem"
+      optional :status, :enum, 2, "rpc.order.OrderResponse.Status"
+      repeated :order_items, :message, 3, "rpc.order.OrderItem"
+    end
+    add_enum "rpc.order.OrderResponse.Status" do
+      value :CART, 0
+      value :ORDEDED, 1
     end
   end
 end
@@ -16,5 +21,6 @@ end
 module Rpc
   module Order
     OrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("rpc.order.OrderResponse").msgclass
+    OrderResponse::Status = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("rpc.order.OrderResponse.Status").enummodule
   end
 end
