@@ -1,24 +1,22 @@
 require 'rails_helper'
 
 describe 'OrderService', type: :request do
-  # todo: extract helpers
-  let(:conn) do
-    Faraday.new(url: 'http://example.com/twirp') do |conn|
-      conn.adapter :rack, app
-    end
-  end
-
   describe 'show' do
+    let!(:product) { create(:product) }
     let!(:order) do
       Order.create!
     end
-
+    let!(:order_item) { OrderItem.create!(order: order, product: product, quantity: 2) }
 
     describe 'found' do
       subject!(:rpc_response) { ::Rpc::Order::OrderClient.new(conn).show({ id: order.id }) }
       it do
+        pp rpc_response.data.to_h
         expect(rpc_response.data.to_h).to match(hash_including(
-          id: String
+          id: String,
+          order_items: [
+            hash_including(id: String, product: Hash)
+          ]
         ))
       end
     end

@@ -3,10 +3,12 @@
 
 require 'google/protobuf'
 
+require 'rpc/order/order_item_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("rpc/order/order_response.proto", :syntax => :proto3) do
     add_message "rpc.order.OrderResponse" do
       optional :id, :string, 1
+      repeated :order_items, :message, 2, "rpc.order.OrderItem"
     end
   end
 end

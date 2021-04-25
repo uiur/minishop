@@ -1,7 +1,9 @@
 syntax = "proto3";
 
+import "rpc/order/order_item.proto";
 package rpc.order;
 
 message OrderResponse {
   string id = 1;
+  repeated OrderItem order_items = 2;
 }

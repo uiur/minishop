@@ -8,7 +8,6 @@ class OrdersController < ::Rpc::ApplicationController
 
   def create
     order = Order.create!
-
     represent(order)
   end
 

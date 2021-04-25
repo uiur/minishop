@@ -23,7 +23,7 @@ describe 'products', type: :request do
 
   describe 'ProductService.index' do
     let!(:product) do
-      Product.create!(name: 'test', price: 100)
+      create(:product)
     end
 
     subject(:rpc_response) { ::Rpc::Product::ProductClient.new(conn).index({}) }
