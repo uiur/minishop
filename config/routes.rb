@@ -1,4 +1,13 @@
-# Dir[Rails.root.join('lib', 'rpc', '**', '*.rb')].sort.each { |f| require f }
+proto_gen_dir = Rails.root.join('lib', 'gens')
+service_classes = Dir[proto_gen_dir.join('**', '*_service_*.rb')].sort.map {|path|
+  dir = File.dirname(path)
+  basename = File.basename(path, '.rb')
+  relative_dir = Pathname.new(dir).relative_path_from(proto_gen_dir)
+  [
+    relative_dir.to_s.classify,
+    Rails.autoloaders.main.inflector.camelize(basename, path)
+  ].join('::')
+}.uniq.map(&:constantize)
 
 Rails.application.routes.draw do
   def rpc(service)
@@ -7,10 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  [
-    ::Rpc::User::UserService,
-    ::Rpc::Product::ProductService
-  ].each do |service|
+  service_classes.each do |service|
     rpc service
   end
 end
