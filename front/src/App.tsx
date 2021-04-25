@@ -11,8 +11,8 @@ import {
   Link,
   useParams,
 } from 'react-router-dom'
-import { ProductResponse } from './rpc/rpc/product/product_response'
-import { ProductClient } from './rpc/rpc/product/product_service.client'
+import { ProductResponse } from './gen/rpc/product/product_response'
+import { ProductClient } from './gen/rpc/product/product_service.client'
 
 function useProduct(id: string) {
   const client = new ProductClient(transport)
