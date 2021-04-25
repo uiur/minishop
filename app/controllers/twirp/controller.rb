@@ -21,7 +21,12 @@ class Twirp::Controller < ActionController::Metal
 
   def wrap_response
     rpc_request
-    output = yield
+    output =
+      begin
+        yield
+      rescue ::ActiveRecord::RecordNotFound
+        Twirp::Error.new(:not_found, 'record is not found')
+      end
 
     output =
       case output
@@ -40,8 +45,18 @@ class Twirp::Controller < ActionController::Metal
         Twirp::Error.internal("Handler method expected to return one of #{env[:output_class].name}, Hash or Twirp::Error, but returned #{out.class.name}.")
       end
 
-    response.headers['Content-Type'] = env[:content_type]
-    self.response_body = ::Twirp::Encoding.encode(output, env[:output_class], env[:content_type])
+    if output.is_a?(Twirp::Error)
+      error_response(output)
+    else
+      response.headers['Content-Type'] = env[:content_type]
+      self.response_body = ::Twirp::Encoding.encode(output, env[:output_class], env[:content_type])
+    end
+  end
+
+  def error_response(twerr)
+    response.headers['Content-Type'] = ::Twirp::Encoding::JSON
+    self.status = Twirp::ERROR_CODES_TO_HTTP_STATUS[twerr.code]
+    self.response_body = ::Twirp::Encoding.encode_json(twerr.to_h)
   end
 
   def rpc_request
@@ -86,7 +101,7 @@ class Twirp::Controller < ActionController::Metal
   end
 
   def route_err(code, msg, req)
-    Twirp::Error.new code, msg, twirp_invalid_route: "#{req.request_method} #{req.fullpath}"
+    Twirp::Error.new(code, msg, twirp_invalid_route: "#{req.request_method} #{req.fullpath}")
   end
 
   def env

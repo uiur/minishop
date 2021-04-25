@@ -6,6 +6,12 @@ class OrdersController < ::Rpc::ApplicationController
     represent(order)
   end
 
+  def create
+    order = Order.create!
+
+    represent(order)
+  end
+
   private
 
   def represent(product)

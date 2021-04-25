@@ -21,11 +21,22 @@ end
 
 Rails.application.reloader.before_class_unload do
   Google::Protobuf::DescriptorPool.generated_pool = nil
-  $pool.each do |name, block|
-    if name.start_with?('google/')
-      Google::Protobuf::DescriptorPool.generated_pool.build do
-        add_file(name, nil, &block)
-      end
-    end
-  end
+  $VERBOSE = nil
+  load 'google/protobuf/any_pb'
+  load 'google/protobuf/duration_pb'
+  load 'google/protobuf/field_mask_pb'
+  load 'google/protobuf/struct_pb'
+  load 'google/protobuf/timestamp_pb'
+  load 'google/protobuf/well_known_types'
+  $VERBOSE = true
+
+  # pp $pool
+  # $pool.each do |name, block|
+  #   if name.start_with?('google/')
+  #     pp name
+  #     Google::Protobuf::DescriptorPool.generated_pool.build do
+  #       add_file(name, syntax: :proto3, &block)
+  #     end
+  #   end
+  # end
 end
