@@ -1,6 +1,20 @@
 require 'zeitwerk'
+require 'protorails/routing'
 
 module Protorails
+  class Configuration
+    attr_accessor :proto_dir, :proto_gen_dir
+    def initialize(*)
+      @proto_dir = 'app/protos'
+      @proto_gen_dir = 'app/gens'
+    end
+  end
+
+  @config = Configuration.new
+  class << self
+    attr_reader :config
+  end
+
   class ProtobufInflector < ::Zeitwerk::Inflector
     def camelize(basename, abspath)
       if basename =~ /\A.*(_pb|_twirp)$/
