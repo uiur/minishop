@@ -1,4 +1,4 @@
-class ProductsController < ::Rpc::ApplicationController
+class ProductsController < ApplicationController
   service ::Rpc::Product::ProductService
 
   def index

@@ -1,5 +1,5 @@
 
-class UsersController < ::Rpc::ApplicationController
+class UsersController < ApplicationController
   service ::Rpc::User::UserService
 
   def create

@@ -1,4 +1,4 @@
-class OrdersController < ::Rpc::ApplicationController
+class OrdersController < ApplicationController
   service ::Rpc::Order::OrderService
 
   def show

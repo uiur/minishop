@@ -1,4 +1,4 @@
-class CartsController < ::Rpc::ApplicationController
+class CartsController < ApplicationController
   service ::Rpc::Order::CartService
 
   def update_product
