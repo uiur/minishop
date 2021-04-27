@@ -1,3 +1,3 @@
-class Rpc::ApplicationController < ::Twirp::Controller
+class Rpc::ApplicationController < ::Protorails::BaseController
 
 end

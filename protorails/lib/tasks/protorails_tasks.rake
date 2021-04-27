@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :proto do
+namespace :protorails do
   desc "Compile proto definitions"
   task :compile do
     def system!(*args)
@@ -8,10 +8,11 @@ namespace :proto do
       system(*args) || abort("\n== Command #{args} failed ==")
     end
 
-    proto_dir = Rails.root.join('lib', 'protos')
+    proto_dir = Rails.root.join(Protorails.config.proto_dir)
     proto_path = Rails.root.join(proto_dir, '**', '*.proto').to_s
     proto_service_path = Rails.root.join(proto_dir, '**', '*_service.proto').to_s
-    gen_dir = Rails.root.join('lib', 'gens')
+
+    gen_dir = Rails.root.join(Protorails.config.proto_gen_dir)
 
     FileUtils.rm_f(Dir[Rails.root.join(gen_dir, '**', '*.rb').to_s])
     system!('protoc', "--proto_path=#{proto_dir}", "--ruby_out=#{gen_dir}", *Dir[proto_path])

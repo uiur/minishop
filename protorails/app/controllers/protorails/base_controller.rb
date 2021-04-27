@@ -1,4 +1,4 @@
-class Twirp::Controller < ActionController::Metal
+class Protorails::BaseController < ActionController::Metal
   include ::ActionController::Rescue
   include ::AbstractController::Callbacks
 
