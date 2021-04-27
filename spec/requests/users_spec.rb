@@ -18,12 +18,10 @@ describe 'users', type: :request do
 
   describe 'UserService.create' do
     let(:params) { { name: 'foobar' } }
-    subject(:submit_request) { post '/twirp/User/Create', params: params, as: :json }
+    subject!(:rpc_response) { ::Rpc::User::UserClient.new(conn).create(params) }
 
     it do
-      submit_request
-      res = Twirp::Encoding.decode(response.body, Rpc::User::UserResponse, Twirp::Encoding::JSON)
-      expect(res.to_h).to match(
+      expect(rpc_response.data.to_h).to match(
         id: Integer,
         name: String
       )
