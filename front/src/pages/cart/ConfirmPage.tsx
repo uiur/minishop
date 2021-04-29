@@ -1,14 +1,17 @@
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import transport from '../../client/transport'
+import Button from '../../components/Button'
 import OrderSummaryComponent from '../../components/OrderSummaryComponent'
 import { CartClient } from '../../gen/rpc/order/cart_service.client'
-import { useCart } from '../useCart'
+import { useCart } from '../../hooks/useCart'
+import { View, Text } from 'react-native'
+import TextStyle from '../../styles/TextStyle'
 
 const client = new CartClient(transport)
 
 export default function ConfirmPage() {
-  const { data: cart } = useCart()
+  const { data: cart, mutate } = useCart()
 
   const history = useHistory()
   const shippingAddress = cart?.shippingAddress
@@ -20,33 +23,32 @@ export default function ConfirmPage() {
     await client.complete({ orderId: cart.id })
 
     localStorage.removeItem('cart_id')
+    mutate()
     history.push(`/orders/${cart.id}/complete`)
-  }, [cart?.id])
+  }, [cart?.id, mutate])
 
   if (cart === undefined) return null
 
   return (
-    <>
-      <h1>CONFIRM</h1>
+    <View style={{ flex: 1, maxWidth: 480 }}>
+      <Text style={TextStyle.title}>CONFIRM</Text>
       <OrderSummaryComponent order={cart}></OrderSummaryComponent>
 
-      <div>
-        <h2>SHIPPING</h2>
+      <Text style={[TextStyle.title, { marginTop: 20 }]}>SHIPPING</Text>
 
-        {shippingAddress !== undefined && (
-          <>
-            <div>{shippingAddress.name}</div>
-            <div>{shippingAddress.country}</div>
-            <div>{shippingAddress.city}</div>
-            <div>{shippingAddress.zip}</div>
-            <div>{shippingAddress.address1}</div>
-            <div>{shippingAddress.address2}</div>
-            <div>{shippingAddress.phone}</div>
-          </>
-        )}
-      </div>
+      {shippingAddress !== undefined && (
+        <>
+          <Text>{shippingAddress.name}</Text>
+          <Text>{shippingAddress.country}</Text>
+          <Text>{shippingAddress.city}</Text>
+          <Text>{shippingAddress.zip}</Text>
+          <Text>{shippingAddress.address1}</Text>
+          <Text>{shippingAddress.address2}</Text>
+          <Text>{shippingAddress.phone}</Text>
+        </>
+      )}
 
-      <button onClick={confirm}>CONFIRM</button>
-    </>
+      <Button onPress={confirm} title="CONFIRM" />
+    </View>
   )
 }

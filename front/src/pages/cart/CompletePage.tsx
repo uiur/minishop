@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router'
 import OrderSummaryComponent from '../../components/OrderSummaryComponent'
-import { useOrder } from '../useOrder'
+import { useOrder } from '../../hooks/useOrder'
 
 export default function CompletePage() {
   const { id } = useParams<{ id: string }>()

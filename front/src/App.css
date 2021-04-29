@@ -1,7 +1,15 @@
-.App {
-  text-align: center;
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+#root {
+  display: flex;
+  height: 100%;
 }
 
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,22 +43,9 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
-.products-container {
-  flex-direction: row;
-  display: flex;
-}
-
-.product {
-  flex: 1;
-}
-
-.product-image {
-  width: 80%;
-  max-width: 400px;
-}
-
+/*
 .content {
   padding: 20px;
-}
+} */
