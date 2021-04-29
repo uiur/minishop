@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { OrderResource } from '../gen/rpc/order/order_resource'
+import {
+  OrderResource,
+  OrderResource_Status,
+} from '../gen/rpc/order/order_resource'
 
 export default function OrderSummaryComponent({
   order,
@@ -24,6 +27,10 @@ export default function OrderSummaryComponent({
       <div>Subtotal: ${order.amount}</div>
       <div>Shipping: $0</div>
       <div>Total: ${order.amount}</div>
+
+      {order.status === OrderResource_Status.ORDERED && (
+        <div>Status: ORDERED</div>
+      )}
     </div>
   )
 }

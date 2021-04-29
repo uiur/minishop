@@ -44,9 +44,9 @@ export enum OrderResource_Status {
    */
   CART = 0,
   /**
-   * @generated from protobuf enum value: ORDEDED = 1;
+   * @generated from protobuf enum value: ORDERED = 1;
    */
-  ORDEDED = 1,
+  ORDERED = 1,
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class OrderResource$Type extends MessageType<OrderResource> {
