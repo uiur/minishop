@@ -69,6 +69,9 @@ describe ::Rpc::Order::CartService, type: :request do
         ))
 
         order.reload
+        expect(order).to have_attributes(
+          shipping_address_id: String
+        )
         expect(order.shipping_address).to have_attributes(
           city: 'Tokyo'
         )

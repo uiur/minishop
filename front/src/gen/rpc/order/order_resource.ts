@@ -8,6 +8,7 @@ import type { BinaryReadOptions } from '@protobuf-ts/runtime'
 import type { IBinaryReader } from '@protobuf-ts/runtime'
 import { UnknownFieldHandler } from '@protobuf-ts/runtime'
 import { MessageType } from '@protobuf-ts/runtime'
+import { ShippingAddressResource } from './shipping_address_resource'
 import { OrderItemResource } from './order_item_resource'
 /**
  * @generated from protobuf message rpc.order.OrderResource
@@ -29,6 +30,10 @@ export interface OrderResource {
    * @generated from protobuf field: repeated rpc.order.OrderItemResource order_items = 4;
    */
   orderItems: OrderItemResource[]
+  /**
+   * @generated from protobuf field: rpc.order.ShippingAddressResource shipping_address = 5;
+   */
+  shippingAddress?: ShippingAddressResource
 }
 /**
  * @generated from protobuf enum rpc.order.OrderResource.Status
@@ -62,6 +67,12 @@ class OrderResource$Type extends MessageType<OrderResource> {
         repeat: 1 /*RepeatType.PACKED*/,
         T: () => OrderItemResource,
       },
+      {
+        no: 5,
+        name: 'shipping_address',
+        kind: 'message',
+        T: () => ShippingAddressResource,
+      },
     ])
   }
   internalBinaryRead(
@@ -91,6 +102,14 @@ class OrderResource$Type extends MessageType<OrderResource> {
               reader.uint32(),
               options
             )
+          )
+          break
+        case /* rpc.order.ShippingAddressResource shipping_address */ 5:
+          message.shippingAddress = ShippingAddressResource.internalBinaryRead(
+            reader,
+            reader.uint32(),
+            options,
+            message.shippingAddress
           )
           break
         default:
@@ -131,6 +150,13 @@ class OrderResource$Type extends MessageType<OrderResource> {
       OrderItemResource.internalBinaryWrite(
         message.orderItems[i],
         writer.tag(4, WireType.LengthDelimited).fork(),
+        options
+      ).join()
+    /* rpc.order.ShippingAddressResource shipping_address = 5; */
+    if (message.shippingAddress)
+      ShippingAddressResource.internalBinaryWrite(
+        message.shippingAddress,
+        writer.tag(5, WireType.LengthDelimited).fork(),
         options
       ).join()
     let u = options.writeUnknownFields

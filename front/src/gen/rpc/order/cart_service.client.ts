@@ -4,6 +4,7 @@
 import type { RpcTransport } from '@protobuf-ts/runtime-rpc'
 import type { ServiceInfo } from '@protobuf-ts/runtime-rpc'
 import { Cart } from './cart_service'
+import type { UpdateShippingAddressRequest } from './update_shipping_address_request'
 import { stackIntercept } from '@protobuf-ts/runtime-rpc'
 import type { OrderResource } from './order_resource'
 import type { UpdateProductRequest } from './update_product_request'
@@ -20,6 +21,13 @@ export interface ICartClient {
     input: UpdateProductRequest,
     options?: RpcOptions
   ): UnaryCall<UpdateProductRequest, OrderResource>
+  /**
+   * @generated from protobuf rpc: UpdateShippingAddress(rpc.order.UpdateShippingAddressRequest) returns (rpc.order.OrderResource);
+   */
+  updateShippingAddress(
+    input: UpdateShippingAddressRequest,
+    options?: RpcOptions
+  ): UnaryCall<UpdateShippingAddressRequest, OrderResource>
 }
 /**
  * @generated from protobuf service rpc.order.Cart
@@ -39,6 +47,23 @@ export class CartClient implements ICartClient, ServiceInfo {
     const method = this.methods[0],
       opt = this._transport.mergeOptions(options)
     return stackIntercept<UpdateProductRequest, OrderResource>(
+      'unary',
+      this._transport,
+      method,
+      opt,
+      input
+    )
+  }
+  /**
+   * @generated from protobuf rpc: UpdateShippingAddress(rpc.order.UpdateShippingAddressRequest) returns (rpc.order.OrderResource);
+   */
+  updateShippingAddress(
+    input: UpdateShippingAddressRequest,
+    options?: RpcOptions
+  ): UnaryCall<UpdateShippingAddressRequest, OrderResource> {
+    const method = this.methods[1],
+      opt = this._transport.mergeOptions(options)
+    return stackIntercept<UpdateShippingAddressRequest, OrderResource>(
       'unary',
       this._transport,
       method,
