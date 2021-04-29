@@ -65,10 +65,10 @@ class BaseRepresenter
         elsif object.respond_to?(:"#{name}?")
           object.public_send(:"#{name}?")
         else
-          raise "#{name} is not defined"
+          raise "`#{name}` method is not defined on #{self.class} or #{object} "
         end
 
-      if field.representer
+      if field.representer && value
         value = field.representer.represent(value, context: @context)
       end
 

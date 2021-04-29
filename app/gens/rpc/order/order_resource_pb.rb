@@ -4,12 +4,15 @@
 require 'google/protobuf'
 
 require 'rpc/order/order_item_resource_pb'
+require 'rpc/order/shipping_address_resource_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("rpc/order/order_resource.proto", :syntax => :proto3) do
     add_message "rpc.order.OrderResource" do
       optional :id, :string, 1
       optional :status, :enum, 2, "rpc.order.OrderResource.Status"
-      repeated :order_items, :message, 3, "rpc.order.OrderItemResource"
+      optional :amount, :int32, 3
+      repeated :order_items, :message, 4, "rpc.order.OrderItemResource"
+      optional :shipping_address, :message, 5, "rpc.order.ShippingAddressResource"
     end
     add_enum "rpc.order.OrderResource.Status" do
       value :CART, 0

@@ -5,7 +5,7 @@ require 'google/protobuf'
 
 require 'rpc/order/update_product_request_pb'
 require 'rpc/order/order_resource_pb'
-require 'google/protobuf/empty_pb'
+require 'rpc/order/update_shipping_address_request_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("rpc/order/cart_service.proto", :syntax => :proto3) do
   end

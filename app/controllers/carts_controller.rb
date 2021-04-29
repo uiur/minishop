@@ -21,6 +21,17 @@ class CartsController < ApplicationController
     represent(order.reload)
   end
 
+  def update_shipping_address
+    order = Order.find(rpc_request.order_id)
+
+    attributes = rpc_request.shipping_address.to_h
+    if order.update(shipping_address_attributes: attributes)
+      represent(order)
+    else
+      Twirp::Error.invalid_argument(msg: order.errors.full_messages.join(', '))
+    end
+  end
+
   private
 
   def represent(order)

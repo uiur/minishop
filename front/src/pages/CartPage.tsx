@@ -61,6 +61,9 @@ export default function CartPage() {
               )
             })}
           </div>
+          <div>
+            <Link to={`/cart/checkout`}>CHECKOUT</Link>
+          </div>
         </div>
       )}
     </div>

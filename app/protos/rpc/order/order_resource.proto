@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "rpc/order/order_item_resource.proto";
+import "rpc/order/shipping_address_resource.proto";
 package rpc.order;
 
 message OrderResource {
@@ -10,5 +11,7 @@ message OrderResource {
     ORDEDED = 1;
   }
   Status status = 2;
-  repeated OrderItemResource order_items = 3;
+  int32 amount = 3;
+  repeated OrderItemResource order_items = 4;
+  ShippingAddressResource shipping_address = 5;
 }

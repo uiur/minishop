@@ -8,6 +8,7 @@ module Rpc
       package 'rpc.order'
       service 'Cart'
       rpc :UpdateProduct, Rpc::Order::UpdateProductRequest, Rpc::Order::OrderResource, :ruby_method => :update_product
+      rpc :UpdateShippingAddress, Rpc::Order::UpdateShippingAddressRequest, Rpc::Order::OrderResource, :ruby_method => :update_shipping_address
     end
 
     class CartClient < Twirp::Client

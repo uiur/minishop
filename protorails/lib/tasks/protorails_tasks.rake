@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :protorails do
+namespace :proto do
   desc "Compile proto definitions"
   task :compile do
     def system!(*args)

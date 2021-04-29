@@ -42,7 +42,7 @@ class Protorails::BaseController < ActionController::Metal
         }
         env[:output_class].new(output)
       else
-        Twirp::Error.internal("Handler method expected to return one of #{env[:output_class].name}, Hash or Twirp::Error, but returned #{out.class.name}.")
+        Twirp::Error.internal("Handler method expected to return one of #{env[:output_class].name}, Hash or Twirp::Error, but returned #{output.class.name}.")
       end
 
     if output.is_a?(Twirp::Error)

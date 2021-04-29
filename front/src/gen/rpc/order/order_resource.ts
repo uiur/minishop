@@ -22,7 +22,11 @@ export interface OrderResource {
    */
   status: OrderResource_Status
   /**
-   * @generated from protobuf field: repeated rpc.order.OrderItemResource order_items = 3;
+   * @generated from protobuf field: int32 amount = 3;
+   */
+  amount: number
+  /**
+   * @generated from protobuf field: repeated rpc.order.OrderItemResource order_items = 4;
    */
   orderItems: OrderItemResource[]
 }
@@ -50,8 +54,9 @@ class OrderResource$Type extends MessageType<OrderResource> {
         kind: 'enum',
         T: () => ['rpc.order.OrderResource.Status', OrderResource_Status],
       },
+      { no: 3, name: 'amount', kind: 'scalar', T: 5 /*ScalarType.INT32*/ },
       {
-        no: 3,
+        no: 4,
         name: 'order_items',
         kind: 'message',
         repeat: 1 /*RepeatType.PACKED*/,
@@ -76,7 +81,10 @@ class OrderResource$Type extends MessageType<OrderResource> {
         case /* rpc.order.OrderResource.Status status */ 2:
           message.status = reader.int32()
           break
-        case /* repeated rpc.order.OrderItemResource order_items */ 3:
+        case /* int32 amount */ 3:
+          message.amount = reader.int32()
+          break
+        case /* repeated rpc.order.OrderItemResource order_items */ 4:
           message.orderItems.push(
             OrderItemResource.internalBinaryRead(
               reader,
@@ -115,11 +123,14 @@ class OrderResource$Type extends MessageType<OrderResource> {
     /* rpc.order.OrderResource.Status status = 2; */
     if (message.status !== 0)
       writer.tag(2, WireType.Varint).int32(message.status)
-    /* repeated rpc.order.OrderItemResource order_items = 3; */
+    /* int32 amount = 3; */
+    if (message.amount !== 0)
+      writer.tag(3, WireType.Varint).int32(message.amount)
+    /* repeated rpc.order.OrderItemResource order_items = 4; */
     for (let i = 0; i < message.orderItems.length; i++)
       OrderItemResource.internalBinaryWrite(
         message.orderItems[i],
-        writer.tag(3, WireType.LengthDelimited).fork(),
+        writer.tag(4, WireType.LengthDelimited).fork(),
         options
       ).join()
     let u = options.writeUnknownFields

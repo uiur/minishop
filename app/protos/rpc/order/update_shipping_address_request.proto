@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "rpc/order/shipping_address_resource.proto";
+package rpc.order;
+
+message UpdateShippingAddressRequest {
+  string order_id = 1;
+  ShippingAddressResource shipping_address = 2;
+}
