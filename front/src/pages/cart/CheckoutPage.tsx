@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import transport from '../../client/transport'
-import CartSummaryComponent from '../../components/CartSummaryComponent'
+import OrderSummaryComponent from '../../components/OrderSummaryComponent'
 import { CartClient } from '../../gen/rpc/order/cart_service.client'
 import { OrderResource } from '../../gen/rpc/order/order_resource'
 import { ShippingAddressResource } from '../../gen/rpc/order/shipping_address_resource'
@@ -126,7 +126,7 @@ export default function CheckoutPage() {
       <h1>CHECKOUT</h1>
       {cart !== undefined && (
         <div>
-          <CartSummaryComponent cart={cart}></CartSummaryComponent>
+          <OrderSummaryComponent order={cart}></OrderSummaryComponent>
 
           <div>
             {cart !== undefined && (

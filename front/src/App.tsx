@@ -7,6 +7,7 @@ import ProductsPage from './pages/ProductsPage'
 import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/cart/CheckoutPage'
 import ConfirmPage from './pages/cart/ConfirmPage'
+import CompletePage from './pages/cart/CompletePage'
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
 
           <Route path="/cart/confirm" exact>
             <ConfirmPage></ConfirmPage>
+          </Route>
+
+          <Route path="/orders/:id/complete" exact>
+            <CompletePage></CompletePage>
           </Route>
         </Switch>
       </div>

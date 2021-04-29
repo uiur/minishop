@@ -1,16 +1,19 @@
-import CartSummaryComponent from '../../components/CartSummaryComponent'
+import { useHistory } from 'react-router-dom'
+import OrderSummaryComponent from '../../components/OrderSummaryComponent'
 import { useCart } from '../useCart'
 
 export default function ConfirmPage() {
   const { data: cart } = useCart()
+
+  const history = useHistory()
   const shippingAddress = cart?.shippingAddress
+
+  if (cart === undefined) return null
 
   return (
     <>
       <h1>CONFIRM</h1>
-      {cart !== undefined && (
-        <CartSummaryComponent cart={cart}></CartSummaryComponent>
-      )}
+      <OrderSummaryComponent order={cart}></OrderSummaryComponent>
 
       <div>
         <h2>SHIPPING</h2>
@@ -28,7 +31,13 @@ export default function ConfirmPage() {
         )}
       </div>
 
-      <button>CONFIRM</button>
+      <button
+        onClick={() => {
+          history.push(`/orders/${cart.id}/complete`)
+        }}
+      >
+        CONFIRM
+      </button>
     </>
   )
 }

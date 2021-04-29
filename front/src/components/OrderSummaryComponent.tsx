@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { OrderResource } from '../gen/rpc/order/order_resource'
 
-export default function CartSummaryComponent({
-  cart,
+export default function OrderSummaryComponent({
+  order,
 }: {
-  cart: OrderResource
+  order: OrderResource
 }) {
   return (
     <div>
-      {cart.orderItems.map((orderItem) => {
+      {order.orderItems.map((orderItem) => {
         const product = orderItem.product
         if (!product) return null
 
@@ -21,7 +21,7 @@ export default function CartSummaryComponent({
           </div>
         )
       })}
-      <div>Subtotal: ${cart.amount}</div>
+      <div>Subtotal: ${order.amount}</div>
     </div>
   )
 }
