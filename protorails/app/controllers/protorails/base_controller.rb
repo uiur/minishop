@@ -33,13 +33,14 @@ class Protorails::BaseController < ActionController::Metal
       when env[:output_class], Twirp::Error
         output
       when Hash
-        env[:output_class].descriptor.each {|f|
+        env[:output_class].descriptor.each do |f|
           unless f.type == :message
             unless output.has_key?(f.name.to_sym)
               raise "#{env[:output_class].name} expect `#{f.name}` field, but it's not included"
             end
           end
-        }
+        end
+
         env[:output_class].new(output)
       else
         Twirp::Error.internal("Handler method expected to return one of #{env[:output_class].name}, Hash or Twirp::Error, but returned #{output.class.name}.")

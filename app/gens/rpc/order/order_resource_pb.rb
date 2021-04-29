@@ -16,7 +16,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_enum "rpc.order.OrderResource.Status" do
       value :CART, 0
-      value :ORDEDED, 1
+      value :ORDERED, 1
     end
   end
 end

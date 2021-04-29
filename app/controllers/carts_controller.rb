@@ -28,11 +28,25 @@ class CartsController < ApplicationController
     if order.update(shipping_address_attributes: attributes)
       represent(order)
     else
-      Twirp::Error.invalid_argument(msg: order.errors.full_messages.join(', '))
+      validation_error(order)
+    end
+  end
+
+  def complete
+    order = Order.find(rpc_request.order_id)
+
+    if order.update(status: :ordered)
+      represent(order)
+    else
+      validation_error(order)
     end
   end
 
   private
+
+  def validation_error(record)
+    Twirp::Error.invalid_argument(msg: record.errors.full_messages.join(', '))
+  end
 
   def represent(order)
     OrderResourceRepresenter.represent(order)

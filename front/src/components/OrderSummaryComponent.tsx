@@ -22,6 +22,8 @@ export default function OrderSummaryComponent({
         )
       })}
       <div>Subtotal: ${order.amount}</div>
+      <div>Shipping: $0</div>
+      <div>Total: ${order.amount}</div>
     </div>
   )
 }

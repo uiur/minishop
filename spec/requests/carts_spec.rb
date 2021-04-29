@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ::Rpc::Order::CartService, type: :request do
   let(:client) { ::Rpc::Order::CartClient.new(conn) }
 
-  describe 'updateProduct' do
+  describe 'UpdateProduct' do
     let(:product) { create(:product) }
     let(:order) { create(:order) }
 
@@ -16,7 +16,7 @@ describe ::Rpc::Order::CartService, type: :request do
     end
   end
 
-  describe 'updateShippingAddress' do
+  describe 'UpdateShippingAddress' do
     let(:order) { create(:order) }
     let(:shipping_address_params) do
       {
@@ -90,6 +90,40 @@ describe ::Rpc::Order::CartService, type: :request do
       it do
         expect(rpc_response.error).to have_attributes(code: :invalid_argument)
       end
+    end
+  end
+
+  describe 'Complete' do
+    let(:order) { create(:order, shipping_address: shipping_address) }
+    let(:shipping_address) { create(:shipping_address) }
+
+    subject!(:rpc_response) do
+      client.complete({ order_id: order.id })
+    end
+
+    context 'valid' do
+      let!(:order_item) { create(:order_item, order: order) }
+
+      it 'updates status to ordered' do
+        expect(rpc_response.data.to_h).to match(hash_including(
+          status: :ORDERED
+        ))
+
+        order.reload
+        expect(order).to have_attributes(status: 'ordered')
+      end
+    end
+
+    context 'invalid' do
+      it 'returns error' do
+        expect(rpc_response.error).to have_attributes(
+          code: :invalid_argument
+        )
+
+        order.reload
+        expect(order).to have_attributes(status: 'cart')
+      end
+
     end
   end
 end

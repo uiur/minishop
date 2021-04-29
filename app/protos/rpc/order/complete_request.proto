@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package rpc.order;
+
+message CompleteRequest {
+  string order_id = 1;
+}
