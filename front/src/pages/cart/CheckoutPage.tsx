@@ -9,6 +9,7 @@ import { ShippingAddressResource } from '../../gen/rpc/order/shipping_address_re
 import { useCart } from '../../hooks/useCart'
 import { Text, View, TextInput, StyleSheet } from 'react-native'
 import TextStyle from '../../styles/TextStyle'
+import { RpcError, UnaryCall } from '@protobuf-ts/runtime-rpc'
 
 type ShippingAddressParams = Omit<ShippingAddressResource, 'id'>
 
@@ -20,6 +21,9 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'lightgray',
     borderRadius: 6,
+  },
+  error: {
+    color: 'red',
   },
 })
 
@@ -103,25 +107,44 @@ function ShippingAddressForm({
   )
 }
 
+interface WrappedResponse<T> {
+  response?: T
+  error?: RpcError
+}
+
+function wrapResponse<T extends object>(
+  promise: UnaryCall<any, T>
+): Promise<WrappedResponse<T>> {
+  return promise.response
+    .then((response) => ({ response }))
+    .catch((error: RpcError) => ({ error }))
+}
+
 export default function CheckoutPage() {
   const { data: cart } = useCart()
   const [shippingAddress, setShippingAddress] = useState<
     ShippingAddressParams | undefined
   >()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const history = useHistory()
 
-  const onNext = useCallback(() => {
+  const onNext = useCallback(async () => {
     if (cart === undefined || shippingAddress === undefined) return
 
     const client = new CartClient(transport)
-    client
-      .updateShippingAddress({
+    const { response, error } = await wrapResponse(
+      client.updateShippingAddress({
         orderId: cart.id,
         shippingAddress: { id: '', ...shippingAddress },
       })
-      .then(() => {
-        history.push('/cart/confirm')
-      })
+    )
+
+    if (error) {
+      setErrorMessage(error.message)
+      return
+    }
+
+    history.push('/cart/confirm')
   }, [cart, shippingAddress])
 
   if (cart === undefined) return null
@@ -138,6 +161,10 @@ export default function CheckoutPage() {
             onChange={(params) => setShippingAddress(params)}
           />
         </View>
+
+        {errorMessage !== null && (
+          <Text style={[style.error, { marginTop: 10 }]}>{errorMessage}</Text>
+        )}
 
         <Button onPress={onNext} title="NEXT" />
       </View>

@@ -45,7 +45,7 @@ class CartsController < ApplicationController
   private
 
   def validation_error(record)
-    Twirp::Error.invalid_argument(msg: record.errors.full_messages.join(', '))
+    Twirp::Error.invalid_argument(record.errors.full_messages.join(', '))
   end
 
   def represent(order)

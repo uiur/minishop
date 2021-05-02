@@ -1,5 +1,19 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+const styles = StyleSheet.create({
+  default: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    backgroundColor: '#f0f',
+  },
+  disabled: {
+    opacity: 0.4,
+  },
+})
 
 export default function Button({
   onPress,
@@ -16,16 +30,7 @@ export default function Button({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled || false}
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20,
-        paddingHorizontal: 24,
-        paddingVertical: 12,
-        backgroundColor: '#f0f',
-        ...style,
-      }}
+      style={[styles.default, disabled && styles.disabled, style]}
     >
       <Text style={{ color: 'white' }}>{title}</Text>
     </TouchableOpacity>
