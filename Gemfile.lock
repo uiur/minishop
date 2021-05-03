@@ -1,5 +1,7 @@
-PATH
-  remote: protorails
+GIT
+  remote: https://github.com/uiur/protorails.git
+  revision: 8396a3d034ed475ff3762a777ee64d2dfcb4d77a
+  branch: master
   specs:
     protorails (0.1.0)
       rails (~> 6.0.3, >= 6.0.3.6)
