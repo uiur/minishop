@@ -67,5 +67,6 @@ module Protorails
     rake_tasks do
       load 'tasks/protorails_tasks.rake'
     end
+
   end
 end
